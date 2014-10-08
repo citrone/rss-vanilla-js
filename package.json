@@ -10,5 +10,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Gabriel Cirtea",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-protractor-runner": "^1.1.4"
+  }
 }
