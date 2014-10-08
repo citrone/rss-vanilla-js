@@ -1,0 +1,17 @@
+{
+  "name": "vanilla",
+  "version": "0.0.0",
+  "authors": [
+    "Gabriel Cirtea <gcirtea@yahoo.com>"
+  ],
+  "description": "The RSS reader app built with vanilla js.",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

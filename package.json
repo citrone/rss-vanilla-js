@@ -1,0 +1,14 @@
+{
+  "name": "rss-reader",
+  "version": "1.0.0",
+  "description": "The RSS reader app built with vanilla js.",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gabriel Cirtea",
+  "license": "MIT"
+}
