@@ -150,12 +150,103 @@ was configured. We are still red since we do not have any spec written yet.
 In this step I want to create the entry point of the application which should
 be an `index.html` file.
 
-On the application title bar I want to see `RSS Reader | AngularJS Tutorial` and
+On the application title bar I want to see `RSS Reader | Plain JS Tutorial` and
 have the JS bootstrap file, `app.js` included.
 
 I will store the test specifications for end to end testing in `test/e2e/features`
 and their name will end in `.spec.js`. So, in the protractor configuration file
 I have updated the specs array with the following:
 
-    specs: ['test/e2e/features/**/*.spec.js']
+    specs: ['features/**/*.spec.js']
 
+Now that we are green we can start writing the first test. Let's try to open the
+browser and check it's title bar. As specified it should contain
+`RSS Reader | Plain JS Tutorial`.
+
+The test for it looks like following:
+
+    // test/e2e/features/titlebar.spec.js
+    // Tests for the setting application's title
+    describe('Applications Home Page', function () {
+      it('should have a meaningful title', function () {
+        browser.get("http://localhost:8000");
+
+        expect(browser.getTitle()).toEqual('RSS Reader | Plain JS Tutorial');
+      });
+    });
+
+As you can see from the code, our browser get's connected to `localhost:8000`,
+so we need a server to run and listening on that port. This is quite simple
+to do using python's `SimpleHTTPServer`:
+
+    python -m SimpleHTTPServer
+
+will give you a server listening by default on 8000 port.
+
+Now, if I run grunt, it will fail (as expected), but with a strange message,
+saying that angular could not be found on the page. This is because of the way
+we have written the interaction with the browser in the test above. The browser
+should be accessed using the driver, which looks like this:
+
+    // ...
+    browser.driver.get("http://localhost:8000");
+    // ...
+    expect(browser.driver.getTitle()).toEqual('RSS Reader | Plain JS Tutorial');
+    // ...
+
+Now our test fails with the expected message that the title doesn't match.
+
+Let's create the index.html file with the desired content:
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>RSS Reader | Plain JS Tutorial</title>
+      </head>
+
+      <body>
+      </body>
+    </html>
+
+Further, I want to test if the entry point of the JS application, `app.js` is
+loaded. But first I refactored a bit the code. The final version is below:
+
+    // test/e2e/features/titlebar.spec.js
+    // Tests for the setting application's title
+    describe('Applications Home Page', function () {
+
+      // make sure the browser is open before each test
+      beforeEach(function () {
+        browser.driver.get("http://localhost:8000");
+      });
+
+      // requirement: title should be "RSS Reader | Plain JS Tutorial"
+      it('should have a meaningful title', function () {
+        expect(browser.driver.getTitle()).toEqual('RSS Reader | Plain JS Tutorial');
+      });
+
+      // requirement: app.js should be loaded
+      it('should load the entry point of the JS application, app.js', function() {
+        var scriptElement = browser.driver.findElement(By.tagName('script'));
+        var appAttribute = scriptElement.getAttribute('src');
+
+        expect(appAttribute).toEqual('http://localhost:8000/app/app.js');
+      });
+    });
+
+Now, the test fails with the message "NoSuchElement error", which is expected.
+Let's fix it:
+
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>RSS Reader | Plain JS Tutorial</title>
+      </head>
+
+      <body>
+        <script src='app/app.js'></script>
+      </body>
+    </html>
+
+And finally our first feature is fully tested and implemented.
