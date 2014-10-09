@@ -6,13 +6,12 @@ module.exports = function (grunt) {
   grunt.initConfig({
     protractor: {
       options: {
-        configFile: "test/e2e/protractor_conf.js",
         keepAlive: true,
         noColor: false
       },
       all: {
         options: {
-//          configFile: "test/e2e/e2e.conf.js",
+          configFile: "test/e2e/e2e.conf.js",
           args: {}
         }
       }

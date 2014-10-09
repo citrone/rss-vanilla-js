@@ -153,3 +153,9 @@ be an `index.html` file.
 On the application title bar I want to see `RSS Reader | AngularJS Tutorial` and
 have the JS bootstrap file, `app.js` included.
 
+I will store the test specifications for end to end testing in `test/e2e/features`
+and their name will end in `.spec.js`. So, in the protractor configuration file
+I have updated the specs array with the following:
+
+    specs: ['test/e2e/features/**/*.spec.js']
+
