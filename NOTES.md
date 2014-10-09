@@ -143,7 +143,7 @@ installed. So, just install it:
 
 Now we are green, but we have no test task created, so let's create one. See
 the code in the "Configured grunt" check in in git to see how running protractor
-was configured.
+was configured. We are still red since we do not have any spec written yet.
 
 # Step 1 - Bootstrap the Application
 
