@@ -15,14 +15,26 @@ module.exports = function (grunt) {
           args: {}
         }
       }
+    },
+
+    karma: {
+      unit: {
+        options: {
+          files: ['test/unit/**/*'],
+          frameworks: ['jasmine']
+        },
+        browsers: ['PhantomJS']
+      }
     }
   });
 
   // npm tasks
   grunt.loadNpmTasks('grunt-protractor-runner');
+  grunt.loadNpmTasks('grunt-karma');
 
   // local tasks
   grunt.registerTask('e2e', ['protractor:all']);
-  grunt.registerTask('test',['e2e']);
+  grunt.registerTask('unit', ['karma']);
+  grunt.registerTask('test',['e2e', 'unit']);
   grunt.registerTask('default', ['test']);
 };

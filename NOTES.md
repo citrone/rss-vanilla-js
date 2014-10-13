@@ -237,7 +237,6 @@ loaded. But first I refactored a bit the code. The final version is below:
 Now, the test fails with the message "NoSuchElement error", which is expected.
 Let's fix it:
 
-
     <!DOCTYPE html>
     <html>
       <head>
@@ -250,3 +249,125 @@ Let's fix it:
     </html>
 
 And finally our first feature is fully tested and implemented.
+
+# Step 2 - Create the Layout of the Main Window
+
+I have finished the previous step with two things I which I left open and I
+want to speak about now.
+
+First, the file `app/app.js` does not exist but our tests still pass. This is
+because I only checked in the test the fact that the file is referenced in the
+`index.html` file, but not if it exists. At the time of writing this I don't
+know how to do that, so I leave it for now as it is.
+
+The second thing is related to the first somehow. It's not a commonly seen test
+to check that a javascript or css file is included in the main html file of the
+project. I did that with the intention to learn and show how this is done. I
+won't write tests of this kind for the further included files.
+
+Also, before going on I would like to mention that I took the decision to use
+jQuery and Bootstrap in this project. I know that this might break the idea of
+building this app using plain JS, but I intended to do it by not using any
+framework. jQuery is a basically a DOM manipulation tool and not really a
+framework. On the other hand, Bootstrap can bring us a better UI experience, so
+I decided to use it in this project.
+
+Now, let's go on and see what I want to implement in this step. At the end of
+the step my intention is to have the layout of the main window finished.
+
+The main window will be composed from a big container which will wrap up the
+rest of the application's content. In this container I want to have on the left
+side a menu consisting of icons for the operations which can be done. On the
+rest of the page there will be a list of posts in the current selected RSS feed.
+
+In order to select one feed from the list of which a user subscribed to the
+following mechanism will be implemented: when the user clicks over the feeds
+icon, from the left a dialog will come in with all the feeds on it.
+
+For this step I only want to have the left menu with icons, the main content
+with some dummy data and the mechanism described above to access the feeds.
+
+Also important is to say that I want the content of the page to be dynamically
+generated using some templates which will be injected using jQuery at the
+desired location in the DOM. The templates will be just simple plain HTML files
+with no other data injected in them.
+
+## The Main Container
+
+The main container will be a `div` element with the class `row` attached. Let's
+implement this starting with a test:
+
+
+    // layout: a main container with a left menu and a content area
+    describe('Main Page Layout', function () {
+
+      // requirement: container is a div with a row class
+      it('should have a div container with a row class', function () {
+        var container = browser.driver.findElement(By.id('main-container'));
+        var theAttribute = container.getAttribute('class');
+
+        expect(theAttribute).toContain('row');
+      });
+    });
+
+The code above was added to the `test/e2e/features/homepage.spec.js` file after
+the tests for including `app.js` in the index.html. This test will fail with 
+`NoSuchElement error`.
+
+Fixing it by addin the following line into the `body` tag of the index.html file:
+
+   <div id='main-container' class='row'></div>
+
+There are several things to mention about the test code: I search the main
+container div by `id` since there can be many divs on the page and I need only
+the one that is our main container. Second, the expectation checks if the string
+'row' is *contained* in the class attribute since there could be many other
+classes added to the div.
+
+Now that we are green, let's implement the subcontainers of the main container.
+I want this to be done dynamically from JS since it might be changed in the
+future. So it's time to write our first JS code.
+
+I want to model the main content of the app as a window which can have elements
+on it. These elements could be different type of widgests or even another
+window. I could create the main-container from JS as a window, but I wanted it
+to be in the index.html file since it will exist for any application.
+
+So, a window will have a content area and elements on it. The content area is
+the HTML element itself that hosts the window and the elements are the widgets.
+So the class will have a function to add elements on it.
+
+In order to test drive implement this requirements we need karma (these are
+unit tests and not e2e tests). So, start by adding a new task to grunt that
+will run karma. In the `Gruntfile.js` add the following code:
+
+    // ...
+    // npm tasks
+    // ...
+    grunt.loadNpmTasks('grunt-karma');
+    // ...
+    // local tasks
+    // ...
+    grunt.registerTask('unit', ['karma']);
+    // ,,,
+    grunt.registerTask('test', ['e2e', 'unit']);
+
+The test fails since grunt-karma is not installed;
+
+    npm install grunt-karma --save-dev
+
+After installing grunt-karma a `karma` target should be created:
+
+    karma: {
+      unit: {
+        options: {
+          files: ['test/unit/**/*']
+        }
+      }
+    }
+
+And now create the testing file for our window class at test/unit/window.
+
+There were several things that I had to do in order to make the unit test work
+as desired. Check the git "Unit test configuration" check in to see what has
+been done.

@@ -1,4 +1,4 @@
-// test/e2e/features/titlebar.spec.js
+// test/e2e/features/homepage.spec.js
 // Tests for the setting application's title
 describe('Applications Home Page', function () {
 
@@ -18,5 +18,17 @@ describe('Applications Home Page', function () {
     var appAttribute = scriptElement.getAttribute('src');
 
     expect(appAttribute).toEqual('http://localhost:8000/app/app.js');
+  });
+
+  // layout: a main container with a left menu and a content area
+  describe('Main Page Layout', function () {
+
+    // requirement: container is a div with a row class
+    it('should have a div container with a row class', function () {
+      var container = browser.driver.findElement(By.id('main-container'));
+      var theAttribute = container.getAttribute('class');
+
+      expect(theAttribute).toContain('row');
+    });
   });
 });
