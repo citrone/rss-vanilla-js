@@ -10,4 +10,3 @@ function MainWnd () {
   };
 };
 
-// var mainWnd = new MainWnd();
