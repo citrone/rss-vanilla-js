@@ -20,9 +20,10 @@ module.exports = function (grunt) {
     karma: {
       unit: {
         options: {
-          files: ['test/unit/**/*'],
+          files: ['src/index.html', 'test/unit/**/*', 'src/app/**/*'],
           frameworks: ['jasmine']
         },
+        singleRun: true,
         browsers: ['PhantomJS']
       }
     }

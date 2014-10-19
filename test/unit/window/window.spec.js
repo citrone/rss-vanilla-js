@@ -2,8 +2,17 @@
 // Unit tests for the Window class
 'use strict';
 
-describe('Test', function () {
-  it('should pass', function () {
-    expect(1).toBe(1);
+describe('The MainWnd class properties', function () {
+  var mainWnd;
+  beforeEach(function (done) {
+    window.onload =  function () {
+      mainWnd = new MainWnd();
+      done();
+    };
+  });
+
+  it('should have an el property', function () {
+    console.log(mainWnd);
+    expect(mainWnd.el).not.toBeNull();
   });
 });
