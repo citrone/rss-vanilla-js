@@ -5,8 +5,15 @@
 function MainWnd () {
   var el = document.getElementById('main-container') || 'body';
 
+  function theLayout() {
+    var feeds = document.createElement("div");
+    feeds.id = 'feeds';
+    feeds.className = 'feeds';
+    el.appendChild(feeds);
+  };
+
   return {
-    el: el
+    el: el,
+    createLayout: theLayout
   };
 };
-

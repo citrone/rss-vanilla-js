@@ -12,16 +12,12 @@ describe('Applications Home Page', function () {
     expect(browser.driver.getTitle()).toEqual('RSS Reader | Plain JS Tutorial');
   });
 
-  // requirement: app.js should be loaded
-  it('should load the entry point of the JS application, app.js', function() {
-    var scriptElement = browser.driver.findElement(By.tagName('script'));
-    var appAttribute = scriptElement.getAttribute('src');
-
-    expect(appAttribute).toEqual('http://localhost:8000/app/app.js');
-  });
-
   // layout: a main container with a left menu and a content area
   describe('Main Page Layout', function () {
+
+    beforeEach(function () {
+      browser.driver.get("http://localhost:8000");
+    });
 
     // requirement: container is a div with a row class
     it('should have a div container with a row class', function () {
@@ -30,5 +26,18 @@ describe('Applications Home Page', function () {
 
       expect(theAttribute).toContain('row');
     });
-  });
-});
+
+    // requirement: container should have a feeds div
+    it('should have a feeds div', function () {
+      var theDiv = browser.driver.findElement({id: 'feeds'})
+        .then(function (el) {
+          var theAttribute = el.getAttribute('class')
+            .then(function (attrName) {
+              expect(attrName).toBe('feeds');
+            });
+        });
+    });
+
+  }); // end Main Page Layout
+
+}); // end Applications Home Page
