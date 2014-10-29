@@ -1,6 +1,7 @@
 // test/e2e/features/homepage.spec.js
 // Tests for the setting application's title
 describe('Applications Home Page', function () {
+  'use strict';
 
   // make sure the browser is open before each test
   beforeEach(function () {
@@ -34,6 +35,16 @@ describe('Applications Home Page', function () {
           var theAttribute = el.getAttribute('class')
             .then(function (attrName) {
               expect(attrName).toBe('feeds');
+            });
+        });
+    });
+
+    it('should have a content div', function () {
+      var theDiv = browser.driver.findElement({id: 'content'})
+        .then(function (el) {
+          var theAttribute = el.getAttribute('class')
+            .then(function(attrName) {
+              expect(attrName).toBe('content');
             });
         });
     });

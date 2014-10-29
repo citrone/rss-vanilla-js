@@ -1,8 +1,9 @@
 // src/app/app.js
 // The bootstrap file of our app
-'use strict';
 
 window.onload = function () {
+  'use strict';
+
   var mainWnd = new MainWnd();
 
   mainWnd.createLayout();
