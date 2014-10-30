@@ -39,6 +39,7 @@ describe('Applications Home Page', function () {
         });
     });
 
+    // requirement: container should have a content div
     it('should have a content div', function () {
       var theDiv = browser.driver.findElement({id: 'content'})
         .then(function (el) {

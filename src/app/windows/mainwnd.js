@@ -6,29 +6,26 @@ function MainWnd () {
 
   var el = document.getElementById('main-container') || 'body';
 
-  function createFeedsDiv() {
+  var createFeedsDiv = function () {
     var feeds = document.createElement("div");
 
     feeds.id = 'feeds';
     feeds.className = 'feeds';
     el.appendChild(feeds);
-  }
+  };
 
-  function createContentDiv() {
+  var createContentDiv = function () {
     var content = document.createElement("div");
 
-    content.id='content';
+    content.id = 'content';
     content.className = 'content';
     el.appendChild(content);
-  }
-
-  function theLayout() {
-    createFeedsDiv();
-    createContentDiv();
-  }
+  };
 
   return {
-    el: el,
-    createLayout: theLayout
+    createLayout: function () {
+      createFeedsDiv();
+      createContentDiv();
+    }
   };
 }
