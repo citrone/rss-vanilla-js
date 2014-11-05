@@ -24,7 +24,9 @@ module.exports = function (grunt) {
           frameworks: ['jasmine']
         },
         singleRun: true,
-        browsers: ['Chrome']
+        browsers: ['Chrome'],
+        reporters: 'dots',
+        logLevel: 'ERROR'
       }
     }
   });

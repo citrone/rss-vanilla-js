@@ -6,5 +6,5 @@ window.onload = function () {
 
   var mainWnd = new MainWnd();
 
-  mainWnd.createLayout();
+  mainWnd.init();
 };
