@@ -2,9 +2,11 @@
 // The main window of the application
 function MainWnd () {}
 
-MainWnd.prototype = WindowBase.prototype;
+MainWnd.prototype = Object.create(new WindowBase());
 
-MainWnd.init = function () {
-  addElement('div', {id: 'feeds', class: 'feeds'});
-  addElement('div', {id: 'content', class: 'content'});
+MainWnd.prototype.init = function () {
+  'use strict';
+
+  this.addElement('div', {id: 'feeds', className: 'feeds'});
+  this.addElement('div', {id: 'content', className: 'content'});
 };

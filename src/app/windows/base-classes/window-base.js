@@ -7,14 +7,14 @@ var WindowBase = function () {
            document.getElementsByTagName('body')[0];
 
   return {
-    addElement: function (type, properties) {
+    addElement: function (type, props) {
       if (!type) type = 'div';
 
       var element = document.createElement(type);
 
-      if (properties) {
-        for(var property in properties) {
-          element[property] = properties[property];
+      if (props) {
+        for(var prop in props) {
+          element[prop] = props[prop];
         }
       }
 
