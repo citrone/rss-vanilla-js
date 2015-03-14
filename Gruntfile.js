@@ -9,11 +9,15 @@ module.exports = function (grunt) {
         keepAlive: true,
         noColor: false
       },
+      run: {},
       all: {
         options: {
           configFile: "test/e2e/e2e.conf.js",
           args: {}
         }
+      },
+      protractor_webdriver: {
+        run: {}
       }
     },
 
@@ -24,7 +28,10 @@ module.exports = function (grunt) {
           frameworks: ['jasmine']
         },
         singleRun: true,
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
+        hostname: process.env.IP,
+        port: process.env.PORT,
+        runnerPort: 0,
         reporters: 'dots',
         logLevel: 'ERROR'
       }
